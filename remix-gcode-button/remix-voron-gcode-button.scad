@@ -32,7 +32,7 @@ module icon()
   translate([iconXmove,iconYmove,iconZmove])
   scale([iconXscale,iconYscale,1])
   linear_extrude(height = iconExtrudeHeight, center = false, convexity = 10)
-  import("svg/heatup.svg");
+  import("svg/leddown.svg");
   /* #import("svg/Zeichnung.svg",convexity=5); */
 }
 
@@ -115,7 +115,7 @@ module stemNegative()
 }
 /* stemNegative(); */
 
-module newKeycap(height=4)
+module newEmptyKeycap(height=5)
 {
   translate([0,0,height+1])
   mirror([0,0,1])
@@ -138,20 +138,13 @@ module newKeycap(height=4)
         }
       }
 
-      hull()
+
+      /* cutout inner pocket */
+      translate([-0.03,-0.03,-0.005])
+      minkowski()
       {
-        /* translate([0,0,height])
-        minkowski()
-        {
-          rotate([0,0,30]) cylinder(r=6,h=0.1,$fn=6);
-          cylinder(r=2.6,h=0.00000001);
-        } */
-        translate([-0.03,-0.03,-0.005])
-        minkowski()
-        {
-          rotate([0,0,30]) cylinder(r=6.7,h=height-1,$fn=6);
-          cylinder(r=2.9,h=0.00000001, $fn=100);
-        }
+        rotate([0,0,30]) cylinder(r=6.7,h=height-2,$fn=6);
+        cylinder(r=2.9,h=0.00000001, $fn=100);
       }
     }
 
@@ -160,22 +153,22 @@ module newKeycap(height=4)
   }
 }
 
-/* newKeycap(); */
+/* newEmptyKeycap(); */
 
 
 /* difference() {
-  newKeycap();
+  newEmptyKeycap();
   cube([10,10,10]);
 } */
 
 
 /* LightOff(); */
 
-module keycap_lowLight(iconScale=1)
+module keycap()
 {
   difference()
   {
-    newKeycap();
+    newEmptyKeycap();
     icon();
   }
 }
@@ -187,4 +180,4 @@ module keycap_lowLight(iconScale=1)
 /* newButtonBase(); */
 
 translate([0,0,0])
-keycap_lowLight(iconScale=0.03);
+keycap();
