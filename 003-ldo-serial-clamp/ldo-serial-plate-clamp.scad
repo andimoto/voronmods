@@ -69,5 +69,5 @@ module ldoSerialPlate(type = "DEBUG")
 
 ldoSerialPlate("TYPE2");
 
-/* translate([30,0,0])
-ldoSerialPlate("TYPE1"); */
+translate([30,0,0])
+ldoSerialPlate("TYPE1");
